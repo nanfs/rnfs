@@ -1,0 +1,13 @@
+{
+  "islogin": {
+    "code": 1,
+    "success": "true",
+    "message": "",
+    "data": {
+      "username": "nanfs",
+      "role": "admin",
+      "type": "admin",
+      "domain": "internet"
+    }
+  }
+}
