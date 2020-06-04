@@ -9,11 +9,11 @@ const routerData = [
     }
   },
   {
-    path: '/dashboard',
+    path: '/welcome',
     authority: 'admin,security',
-    component: () => import('@/pages/Dashboard'),
+    component: () => import('@/pages/Welcome'),
     meta: {
-      title: '首页',
+      title: '欢迎',
       icon: 'home'
     }
   }
