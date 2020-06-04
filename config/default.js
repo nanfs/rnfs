@@ -1,5 +1,5 @@
 module.exports = {
-  port: 9567,
+  port: 9999,
   baseURL: '/ccsvm/desktop',
   proxy: {
     '/ccsvm/desktop': {

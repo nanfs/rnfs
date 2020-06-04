@@ -1,30 +1,22 @@
-import React from 'react'
-import { Router } from 'react-router-dom'
+import React, { Suspense, lazy } from 'react'
+import { HashRouter, Route, Switch } from 'react-router-dom'
+import { Spin } from 'antd'
 
-import RouteView from '@/components/RouteView'
-import { AuthorizedRoute } from '@/components/Authorized'
-import getRouterConfig from '../config/router'
-
-// eslint-disable-next-line react/display-name
-export default ({ history, app }) => {
-  const routes = getRouterConfig(app)
+export default function Router() {
   return (
-    <Router history={history}>
-      <RouteView
-        routes={routes}
-        renderRoute={props => {
-          const { path, authority, component, ...other } = props
-          return (
-            <AuthorizedRoute
-              path={path}
-              authority={authority}
-              component={component}
-              redirectPath="/login"
-              RouteProps={other}
-            />
-          )
-        }}
-      />
-    </Router>
+    <HashRouter>
+      <Suspense fallback={<Spin size="large" />}>
+        <Switch>
+          <Route
+            path={'/login'}
+            component={lazy(() => import('@/pages/Login'))}
+          />
+          <Route
+            path={'/'}
+            component={lazy(() => import('@/layouts/BasicLayout'))}
+          />
+        </Switch>
+      </Suspense>
+    </HashRouter>
   )
 }

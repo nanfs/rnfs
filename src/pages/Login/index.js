@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import LoginFrom from './chip/LoginFrom'
+import LoginFrom from './chip/LoginFrom'
 import './login.less'
 
 export default class Login extends Component {
@@ -12,7 +12,7 @@ export default class Login extends Component {
             <div className="login-title">
               <h3>安全云桌面管理系统</h3>
             </div>
-            {/* <LoginFrom className="login-form" /> */}
+            <LoginFrom className="login-form" />
             <div className="version">
               <span>V1.0.0 - build3527</span>
             </div>
