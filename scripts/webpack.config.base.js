@@ -23,7 +23,7 @@ const includePath = [cfgPaths.appSrc]
 const webpackConfigBase = {
   stats: 'errors-only',
   entry: {
-    polyfills: cfgPaths.appPolyfills,
+    // polyfills: cfgPaths.appPolyfills,
     app: [cfgPaths.appIndexJs]
   },
   output: {

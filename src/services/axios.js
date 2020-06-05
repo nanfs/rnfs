@@ -85,6 +85,7 @@ service.interceptors.response.use(
       // eslint-disable-next-line
       return Promise.reject({ message: '接口处理超时!', type: 'timeout' })
     }
+    console.log('123', error)
     checkStatus(error.response)
     return Promise.reject(error)
   }

@@ -6,6 +6,7 @@ export default {
     return axios({
       url: '/user/login',
       method: 'post',
+      baseURL: '/api',
       data: qs.stringify(data)
     })
   },

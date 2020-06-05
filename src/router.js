@@ -1,11 +1,11 @@
 import React, { Suspense, lazy } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Spin } from 'antd'
+import Loading from '@/layouts/Loading'
 
 export default function Router() {
   return (
     <HashRouter>
-      <Suspense fallback={<Spin size="large" />}>
+      <Suspense fallback={<Loading />}>
         <Switch>
           <Route
             path={'/login'}

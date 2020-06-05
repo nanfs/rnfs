@@ -1,27 +1,14 @@
-import React, { Component } from 'react'
-import LoginFrom from './chip/LoginFrom'
+import React from 'react'
+import LoginFrom from './chip/LoginForm'
 import './login.less'
 
-export default class Login extends Component {
-  render() {
-    return (
-      <div className="login-wrap">
-        <div className="header"></div>
-        <div className="content">
-          <div className="content-right">
-            <div className="login-title">
-              <h3>安全云桌面管理系统</h3>
-            </div>
-            <LoginFrom className="login-form" />
-            <div className="version">
-              <span>V1.0.0 - build3527</span>
-            </div>
-          </div>
-        </div>
-        <div className="footer">
-          <p>电科云（北京）科技有限公司</p>
-        </div>
+export default function Login(props) {
+  return (
+    <div className="login-wrap">
+      <LoginFrom className="login-form" {...props} />
+      <div className="footer">
+        <p>This is template nanfs@DMS</p>
       </div>
-    )
-  }
+    </div>
+  )
 }

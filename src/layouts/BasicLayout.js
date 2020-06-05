@@ -1,15 +1,16 @@
 import React, { Suspense, lazy } from 'react'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
-import { Layout, Spin } from 'antd'
+import { Layout } from 'antd'
 import dayjs from 'dayjs' // 设置antd时间控件显示为中文
 import 'dayjs/locale/zh-cn'
 import routerData from '*/router'
 import './chip/base.less'
+import Loading from '@/layouts/Loading'
 import Header from './chip/Header'
 import Sider from './chip/Sider'
 
-const { Content, Footer } = Layout
 dayjs.locale('zh-cn')
+const { Content, Footer } = Layout
 export default function BasicLayout(props) {
   const { location } = props
   return (
@@ -20,7 +21,7 @@ export default function BasicLayout(props) {
         <Layout>
           <Content>
             <HashRouter>
-              <Suspense fallback={<Spin size="large" />}>
+              <Suspense fallback={<Loading />}>
                 <Switch>
                   {routerData.map((item, index) => {
                     return (

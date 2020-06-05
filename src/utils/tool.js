@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import dayjs from 'dayjs'
 
 // 时间格式化
@@ -60,11 +61,14 @@ export function formatTimeToString(time, formatString = 'YYYY/MM/DD') {
   }
   return time.format(formatString)
 }
-export function wrapResponse(res) {
+export function wrapResponse(res, errorText = '执行出错') {
   return new Promise((resolve, reject) => {
     switch (res.code) {
       case 200:
         if (res.success !== undefined && res.success === false) {
+          // 处理错误情况
+          message.error(res.message || errorText)
+          console.assert(res.message, res)
           reject(res)
           break
         }

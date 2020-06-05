@@ -37,6 +37,7 @@ module.exports = {
     'no-unused-vars': 'warn',
     'react/display-name': 'off',
     'prettier/prettier': 'warn',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'max-lines': ['error', 400]
   }
 }
