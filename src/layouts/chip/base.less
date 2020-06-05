@@ -1,8 +1,4 @@
 // @import '../styles/default.scss';
-body {
-  min-width: 1200px;
-  overflow-x: auto;
-}
 .mr10 {
   margin-right: 10px;
 }
@@ -12,8 +8,7 @@ body {
     border-right: 1px solid #dedede;
   }
 }
-// header
-
+// Header
 .header {
   background-color: #1b59a6;
   color: white;
@@ -22,54 +17,6 @@ body {
   background-image: url(../../assets/header_mask.png);
   background-repeat: no-repeat;
   background-position: 90% bottom;
-  .count-onprogress .ant-badge-count {
-    background-color: #52c41a;
-  }
-  .drop-item {
-    padding: 0px 5px;
-  }
-  .drop-item.active {
-    background: #1565c0;
-  }
-  &-drop-list {
-    max-height: 500px;
-    max-width: 400px;
-    // 兼容火狐浏览器
-    min-height: 217px;
-    min-width: 300px;
-    //
-    overflow-y: auto;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.08),
-      0 9px 28px 0 rgba(0, 0, 0, 0.05), 0 12px 48px 16px rgba(0, 0, 0, 0.03);
-    .ant-tabs-nav-wrap {
-      text-align: center;
-    }
-
-    .ant-list-item {
-      position: relative;
-      padding: 12px 24px;
-      transition: all ease 0.3s;
-      min-height: 78px;
-      cursor: pointer;
-      &-meta-description {
-        word-break: break-all;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 10;
-      }
-    }
-    .list-more-btn {
-      height: 50px;
-      line-height: 50px;
-      border: none;
-      border-top: 1px solid #d9d9d9;
-      width: 100%;
-      display: block;
-      text-align: center;
-    }
-  }
   .logo {
     width: 214px;
     height: 55px;
@@ -85,12 +32,11 @@ body {
       display: inline-block;
     }
   }
-  .ant-menu {
+  .options {
     float: right;
     line-height: 55px;
     color: white;
     width: auto;
-    min-width: 130px;
     background: transparent;
     .ant-menu-item {
       padding: 0 15px;
@@ -100,20 +46,6 @@ body {
         border-bottom-color: transparent;
       }
     }
-    .no-padding {
-      padding: 0;
-    }
-    .ant-badge-count {
-      min-width: auto;
-      height: 16px;
-      line-height: 16px;
-      padding: 0 5px;
-    }
-  }
-}
-.ant-menu-submenu-popup {
-  .ant-menu-item > a {
-    display: inline-block;
   }
 }
 // Sider
@@ -191,105 +123,4 @@ body {
 //content
 .ant-layout-content {
   position: relative;
-}
-
-//Compontent
-// InnerPath
-
-//detail
-.dms-detail-section {
-  padding-bottom: 40px;
-}
-
-.dms-detail-row {
-  margin-top: 10px;
-}
-
-.dms-detail-label {
-  text-align: right;
-  padding-left: 10px;
-}
-
-.dms-detail-value {
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-left: 30px;
-  padding-right: 20px;
-
-  .anticon {
-    display: inline;
-  }
-
-  .v-icon {
-    display: inline;
-  }
-}
-.dms-detail-list-hasPagination {
-  .ant-table-pagination.ant-pagination {
-    float: left;
-  }
-}
-
-//进度条progress
-.ant-progress-show-info .ant-progress-outer {
-  margin-right: 0 !important;
-  padding-right: 0 !important;
-  .ant-progress-inner {
-    background-color: #eff0f5;
-  }
-}
-.ant-progress-text {
-  position: relative;
-  width: 100% !important;
-  margin-left: -100% !important;
-  text-align: center !important;
-}
-.ant-progress-status-active .ant-progress-bg {
-  background-color: #b5e8a4 !important;
-}
-.ant-progress-status-exception .ant-progress-bg {
-  background-color: #fb8087 !important;
-}
-.ant-progress-status-exception .ant-progress-text {
-  color: #838487 !important;
-}
-.ant-input-number-handler-wrap {
-  opacity: 1 !important;
-}
-// 下拉框多选时去掉hover时的勾
-.ant-select-dropdown.ant-select-dropdown--multiple
-  .ant-select-dropdown-menu-item:hover
-  .ant-select-selected-icon {
-  color: transparent !important;
-}
-.table-icon {
-  &-info {
-    color: #1890ff;
-  }
-  &-msg {
-    color: #faad14;
-  }
-  &-warn {
-    color: #f56a00;
-  }
-  &-alert {
-    color: #f5222d;
-  }
-}
-
-.ant-table-row-cell-ellipsis {
-  .ant-tag {
-    margin: 0;
-  }
-}
-
-.ellipsis-noWhiteSpace {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ellipsis-hasTag {
-  text-overflow: clip;
 }
