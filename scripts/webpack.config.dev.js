@@ -2,33 +2,30 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const Copy = require('copy-webpack-plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const webpackConfigBase = require('./webpack.config.base')
 const cfgPaths = require('../config/paths')
 const cfg = require('../config/default')
+const os = require('os')
 
 const { port, proxy } = cfg
-function getIPAddress() {
-  const interfaces = require('os').networkInterfaces()
-  // eslint-disable-next-line guard-for-in
-  for (const devName in interfaces) {
-    const iface = interfaces[devName]
-    for (let i = 0; i < iface.length; i++) {
-      const alias = iface[i]
-      if (
-        alias.family === 'IPv4' &&
-        alias.address !== '127.0.0.1' &&
-        !alias.internal
-      ) {
-        return alias.address
-      }
+const interfaces = os.networkInterfaces()
+let IPAddress = ''
+// eslint-disable-next-line guard-for-in
+for (const devName in interfaces) {
+  const iface = interfaces[devName]
+  for (let i = 0; i < iface.length; i++) {
+    const alias = iface[i]
+    if (
+      alias.family === 'IPv4' &&
+      alias.address !== '127.0.0.1' &&
+      !alias.internal
+    ) {
+      IPAddress = alias.address
     }
   }
 }
-console.log(
-  '\x1B[34m %s\x1B[0m',
-  `局域网访问：http://${getIPAddress()}:${port}`
-)
+
 const webpackConfigDev = {
   mode: 'development',
   stats: 'errors-only',
@@ -44,6 +41,16 @@ const webpackConfigDev = {
     }),
     new OpenBrowserPlugin({
       url: `http://localhost:${port}/`
+    }),
+    new FriendlyErrorsWebpackPlugin({
+      compilationSuccessInfo: {
+        messages: [
+          `You can now view  in the browser.\r\n`,
+          ` Local:            http://localhost:${port}`,
+          ` On Your Network:  http://${IPAddress}:${port}`
+        ]
+      },
+      clearConsole: true
     })
     // new Copy([{ from: './scripts/dll', to: './' }])
   ],

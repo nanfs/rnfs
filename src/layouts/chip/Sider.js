@@ -7,7 +7,7 @@ import routerData from '*/router'
 const { SubMenu } = Menu
 
 export default function Sider(props) {
-  const [openKeys, setOpenKeys] = useState([])
+  const [, setOpenKeys] = useState([])
   const rootSubmenuKeys = []
 
   useEffect(() => {

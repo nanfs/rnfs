@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Input, Form, Icon, message } from 'antd'
+import React, { useState } from 'react'
+import { Button, Input, Form, Icon } from 'antd'
 import { Formx } from '@/components'
 import { required } from '@/utils/valid'
 import { setItemToLocal } from '@/utils/storage'

@@ -4,20 +4,10 @@ export function getUser() {
   return getItemFromLocal('userName')
 }
 
-/**
- * @description
- * @author linghu
- * @date 2020-05-09
- */
 export function getUserId() {
   return getItemFromLocal('userId')
 }
 
-/**
- * @description
- * @author lishuai
- * @date 2020-05-08
- */
 export function reloadAuthorized() {
   getItemFromLocal('userName')
 }
@@ -25,47 +15,21 @@ export function reloadAuthorized() {
 export function getRole() {
   return getItemFromLocal('userRole')?.toLowerCase()
 }
-/**
- * @description 检查路由权限
- * @author lishuai
- * @date 2020-05-09
- * @export
- * @param {*} authority
- * @param {*} target
- * @param {*} Exception
- * @returns
- */
+// 检查路由权限
 export function checkRoute(authority, target, Exception) {
   if (checkAuth(authority)) {
     return target
   }
   return Exception
 }
-/**
- * @description 判断三权是否开启
- * @export
- * @returns
- */
-export function checkAuthName(name) {
-  const userName = getItemFromLocal('userName') || ''
-  return name === userName
-}
 
-/**
- * @description 判断三权是否开启
- * @export
- * @returns
- */
+// 判断三权是否开启
 export function checkAuthDiscrete() {
   return getItemFromLocal('threePowersSwitch') || false
 }
 /**
  * @description 检查权限 返回boolean 如果开启三员 开始检查 没有直接返回true 所有三权都通过该方法
- * @author lishuai
- * @date 2020-05-09
- * @export
  * @param {*} 约定authority 系统内必须不会空  为空为登录页
- * @returns
  */
 export function checkAuth(authority) {
   const isDiscrete = getItemFromLocal('threePowersSwitch') || false

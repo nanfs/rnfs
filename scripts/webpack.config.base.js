@@ -1,5 +1,3 @@
-const path = require('path')
-const webpack = require('webpack')
 const HappyPack = require('happypack')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier')
@@ -15,6 +13,7 @@ const cfgPaths = require('../config/paths')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const GeneraterAssetPlugin = require('generate-asset-webpack-plugin')
 const propertiesConfig = require('../public/properties.json')
+const chalk = require('chalk')
 
 const createJson = function() {
   return JSON.stringify(propertiesConfig)
@@ -103,7 +102,13 @@ const webpackConfigBase = {
   },
   plugins: [
     // 去除moment的语言包
-    new ProgressBarPlugin(),
+    new ProgressBarPlugin({
+      complete: '█',
+      format:
+        `${chalk.green('Webpack ')}[ ${chalk.green(':bar')} ] ` +
+        `:msg: ${chalk.bold('(:percent)')}`,
+      clear: true
+    }),
     new CaseSensitivePathsPlugin(),
     new HappyPack({
       // 用id来标识 happypack处理那里类文件
@@ -170,7 +175,8 @@ const webpackConfigBase = {
     // }),
     new MiniCssExtractPlugin({
       filename: 'css/[name][hash].css',
-      chunkFilename: 'css/[id][hash].css'
+      chunkFilename: 'css/[id][hash].css',
+      ignoreOrder: true
     }),
     new OptimizeCss({}),
     new AntdDayjsWebpackPlugin(),

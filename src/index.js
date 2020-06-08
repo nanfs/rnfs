@@ -2,10 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Router from './router'
 import { Provider } from 'mobx-react'
-import stores from './store'
+import Store from './Store'
 
 ReactDOM.render(
-  <Provider {...stores}>
+  <Provider store={new Store()}>
     <Router />
   </Provider>,
   document.getElementById('app')

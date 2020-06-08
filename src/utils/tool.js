@@ -8,7 +8,7 @@ export function dateFormat(val, format = 'YYYY-MM-DD HH:mm:ss') {
   }
   return dayjs(val).format(format)
 }
-// // 对象转数组
+// 对象转数组
 export function obj2KeyValueArray(obj) {
   const array = []
   if (!obj) return array
