@@ -1,5 +1,6 @@
 import React from 'react'
+import styles from './index.m.less'
 
 export default function Forbidden() {
-  return <p>403</p>
+  return <p className={styles.forbidden}>403</p>
 }

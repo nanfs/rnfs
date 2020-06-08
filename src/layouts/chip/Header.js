@@ -1,9 +1,8 @@
 import React from 'react'
 import { Layout, Icon, Dropdown, Menu } from 'antd'
-import { getUser } from '@/utils/checkPermissions'
 import { setItemToLocal } from '@/utils/storage'
 
-export default function Header(props) {
+export default function Header({ user, history }) {
   const renderUserInfo = () => (
     <Menu>
       <Menu.Item key="changePwd">
@@ -17,6 +16,7 @@ export default function Header(props) {
     </Menu>
   )
   const logOut = () => {
+    history.push('/login')
     setItemToLocal(null)
   }
 
@@ -25,7 +25,7 @@ export default function Header(props) {
       <a
         className="logo"
         onClick={() => {
-          return props.history.push('/dashboard')
+          return history.push('/dashboard')
         }}
       >
         <span className="text">rnfs</span>
@@ -33,7 +33,7 @@ export default function Header(props) {
       <Dropdown overlay={renderUserInfo()} placement="bottomCenter">
         <div className="options">
           <Icon type="user" />
-          <span>{getUser()}</span>&nbsp;&nbsp;
+          <span>{user}</span>&nbsp;&nbsp;
           <Icon type="caret-down" />
         </div>
       </Dropdown>
