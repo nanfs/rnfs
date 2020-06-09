@@ -5,7 +5,6 @@ export default class Store {
 
   @action
   changeUserName = name => {
-    console.log('123123', name)
     this.username = name
   }
 }

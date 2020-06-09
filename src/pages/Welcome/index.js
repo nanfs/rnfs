@@ -9,6 +9,7 @@ class Welcome extends React.Component {
   render() {
     const { username, changeUserName } = this.props.store
     // console.log(this.Welcome.getFieldsValue())
+
     const setUser = ({ name }) => {
       console.log('setUser', name)
       changeUserName(name)
