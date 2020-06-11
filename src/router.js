@@ -1,11 +1,9 @@
 import React from 'react'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 import asyncComponent from '*/asyncComponent'
-
-import { getUser } from '@/utils/checkPermissions'
+import AuthorizedRoute from '@/layouts/AuthorizedRoute'
 
 export default function Router() {
-  console.log('123', getUser())
   return (
     <HashRouter>
       <Switch>
@@ -13,15 +11,12 @@ export default function Router() {
           path={'/login'}
           component={asyncComponent(() => import('@/pages/Login'))}
         />
-        <Route
-          path={'/'}
-          component={asyncComponent(
-            getUser()
-              ? () => import('@/layouts/BasicLayout')
-              : () => <Redirect to="/login" />
-          )}
+        <AuthorizedRoute
+          path="/"
+          authority={'admin'}
+          component={asyncComponent(() => import('@/layouts/BasicLayout'))}
+          redirectPath="/login"
         />
-        )
         <Redirect to="/login" />
       </Switch>
     </HashRouter>

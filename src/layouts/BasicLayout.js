@@ -1,10 +1,11 @@
 import React from 'react'
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Switch, Redirect } from 'react-router-dom'
 import { Layout } from 'antd'
 import dayjs from 'dayjs' // 设置antd时间控件显示为中文
 import 'dayjs/locale/zh-cn'
 import routerData from '*/router'
-import { checkAuth, getUser } from '@/utils/checkPermissions'
+import { getUser } from '@/utils/checkPermissions'
+import AuthorizedRoute from './AuthorizedRoute'
 import asyncComponent from '*/asyncComponent'
 import Header from './chip/Header'
 import Sider from './chip/Sider'
@@ -16,17 +17,14 @@ function RouterView(route) {
   if (route.children) {
     return route.children.map(childRoute => RouterView(childRoute))
   }
-  if (!getUser()) {
-    return <Redirect to="/login" key={route.path} />
-  }
-  return checkAuth(route.authority) ? (
-    <Route
+  return (
+    <AuthorizedRoute
       path={route.path}
       key={route.path}
+      authority={route.authority}
       component={asyncComponent(route.component)}
+      redirectPath="/permission/403"
     />
-  ) : (
-    <Redirect to="/permission/403" from={route.path} key={route.path} />
   )
 }
 const { Content, Footer } = Layout
@@ -42,6 +40,7 @@ export default function BasicLayout(props) {
             <HashRouter>
               <Switch>
                 {routerData.map(route => RouterView(route)).flat()}
+                <Redirect exact from="/" to="/dashboard" />
                 <Redirect to="/permission/404" />
               </Switch>
             </HashRouter>
