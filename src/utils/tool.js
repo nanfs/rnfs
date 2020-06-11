@@ -77,6 +77,8 @@ export function wrapResponse(res, errorText = '执行出错') {
 
       case 201:
         if (res.success !== undefined && res.success === false) {
+          message.error(res.message || errorText)
+          console.assert(res.message, res)
           reject(res)
           break
         }

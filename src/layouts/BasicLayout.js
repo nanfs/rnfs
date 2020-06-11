@@ -1,11 +1,11 @@
-import React, { Suspense, lazy } from 'react'
+import React from 'react'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { Layout } from 'antd'
 import dayjs from 'dayjs' // 设置antd时间控件显示为中文
 import 'dayjs/locale/zh-cn'
 import routerData from '*/router'
-import Loading from '@/layouts/Loading'
 import { checkAuth, getUser } from '@/utils/checkPermissions'
+import asyncComponent from '*/asyncComponent'
 import Header from './chip/Header'
 import Sider from './chip/Sider'
 import './chip/base.less'
@@ -17,13 +17,13 @@ function RouterView(route) {
     return route.children.map(childRoute => RouterView(childRoute))
   }
   if (!getUser()) {
-    return <Redirect to="/login" />
+    return <Redirect to="/login" key={route.path} />
   }
   return checkAuth(route.authority) ? (
     <Route
       path={route.path}
       key={route.path}
-      component={lazy(route.component)}
+      component={asyncComponent(route.component)}
     />
   ) : (
     <Redirect to="/permission/403" from={route.path} key={route.path} />
@@ -40,12 +40,10 @@ export default function BasicLayout(props) {
         <Layout>
           <Content>
             <HashRouter>
-              <Suspense fallback={<Loading />}>
-                <Switch>
-                  {routerData.map(route => RouterView(route)).flat()}
-                  <Redirect to="/permission/404" />
-                </Switch>
-              </Suspense>
+              <Switch>
+                {routerData.map(route => RouterView(route)).flat()}
+                <Redirect to="/permission/404" />
+              </Switch>
             </HashRouter>
           </Content>
           <Footer>版权所有</Footer>

@@ -1,19 +1,19 @@
-import { getItemFromLocal } from '@/utils/storage'
+import { getSessionItem } from '@/utils/storage'
 
 export function getUser() {
-  return getItemFromLocal('userName')
+  return getSessionItem('userName')
 }
 
 export function getUserId() {
-  return getItemFromLocal('userId')
+  return getSessionItem('userId')
 }
 
 export function reloadAuthorized() {
-  getItemFromLocal('userName')
+  getSessionItem('userName')
 }
 
 export function getRole() {
-  return getItemFromLocal('userRole')?.toLowerCase()
+  return getSessionItem('userRole')?.toLowerCase()
 }
 // 检查路由权限
 export function checkRoute(authority, target, Exception) {
@@ -25,15 +25,15 @@ export function checkRoute(authority, target, Exception) {
 
 // 判断三权是否开启
 export function checkAuthDiscrete() {
-  return getItemFromLocal('threePowersSwitch') || false
+  return getSessionItem('threePowersSwitch') || false
 }
 /**
  * @description 检查权限 返回boolean 如果开启三员 开始检查 没有直接返回true 所有三权都通过该方法
  * @param {*} 约定authority 系统内必须不会空  为空为登录页
  */
 export function checkAuth(authority) {
-  const isDiscrete = getItemFromLocal('threePowersSwitch') || false
-  if (authority === 'all') {
+  const isDiscrete = getSessionItem('threePowersSwitch') || false
+  if (typeof authority === 'undefined') {
     return true
   }
   // 系统需要权限 如果没有登录

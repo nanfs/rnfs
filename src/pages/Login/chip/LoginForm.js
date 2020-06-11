@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Input, Form, Icon } from 'antd'
 import { Formx } from '@/components'
 import { required } from '@/utils/valid'
-import { setItemToLocal } from '@/utils/storage'
+import { setSessionItem } from '@/utils/storage'
 import { wrapResponse } from '@/utils/tool'
 import loginApi from '@/services/login'
 
@@ -18,7 +18,7 @@ export default function LoginForm(props) {
       .then(res =>
         wrapResponse(res).then(() => {
           setSubmitting(false)
-          const ruleData =
+          const result =
             typeof res.data === 'object'
               ? res.data
               : {
@@ -27,7 +27,8 @@ export default function LoginForm(props) {
                   threePowersSwitch: false,
                   userId: 1
                 }
-          setItemToLocal(ruleData)
+          console.log(result)
+          setSessionItem(result)
           props.history.push('dashboard')
         })
       )

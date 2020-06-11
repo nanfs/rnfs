@@ -1,38 +1,37 @@
-// 获取项目参数
-export function getPropertieslocal() {
-  return JSON.parse(sessionStorage.getItem('properties')) || {}
-}
-
-// 设置项目参数
-export function setPropertiesToLocal(properties) {
-  if (properties) {
-    sessionStorage.setItem('properties', JSON.stringify(properties))
-  } else {
-    sessionStorage.removeItem('properties')
-  }
-}
-
-export function setItemToLocal(Obj) {
-  if (Obj) {
-    for (const [key, value] of Object.entries(Obj)) {
-      sessionStorage.setItem(key, JSON.stringify(value))
+export function setItem(obj, dist = 'localStorage') {
+  if (dist === 'localStorage') {
+    for (const [key, value] of Object.entries(obj)) {
+      value !== null
+        ? localStorage.setItem(key, JSON.stringify(value))
+        : localStorage.removeItem(key, JSON.stringify(value))
     }
   } else {
-    sessionStorage.clear()
+    for (const [key, value] of Object.entries(obj)) {
+      value !== null
+        ? sessionStorage.setItem(key, JSON.stringify(value))
+        : sessionStorage.removeItem(key, JSON.stringify(value))
+    }
   }
 }
+// 清理 session
+export function clearSession() {
+  sessionStorage.clear()
+}
+// 获取
+export function getItem(item, dist = 'localStorage') {
+  const result =
+    dist === 'localStorage'
+      ? JSON.parse(localStorage.getItem(item))
+      : JSON.parse(sessionStorage.getItem(item))
 
-export function setObjItemTolocal(ObjName, Obj) {
-  if (!ObjName) {
-    sessionStorage.clear()
-  } else if (Obj) {
-    sessionStorage.setItem(ObjName, JSON.stringify(Obj))
-  } else {
-    sessionStorage.removeItem(ObjName)
-  }
+  return result !== null ? result : ''
 }
 
 // 从本地获取
-export function getItemFromLocal(item) {
-  return JSON.parse(sessionStorage.getItem(item)) || ''
+export function getSessionItem(item) {
+  return getItem(item, 'sessionStorage')
+}
+
+export function setSessionItem(item) {
+  return setItem(item, 'sessionStorage')
 }

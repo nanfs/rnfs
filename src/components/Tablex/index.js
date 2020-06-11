@@ -74,6 +74,7 @@ class Tablex extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timer)
+    this.setState = () => {}
   }
 
   componentDidUpdate(prevProps) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Icon, Dropdown, Menu, notification } from 'antd'
-import { setItemToLocal } from '@/utils/storage'
+import { clearSession } from '@/utils/storage'
 import { inject, observer } from 'mobx-react'
 
 @inject('store')
@@ -31,7 +31,7 @@ class Header extends React.Component {
     )
     const logOut = () => {
       history.push('/login')
-      setItemToLocal(null)
+      clearSession()
     }
 
     return (

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { setItemToLocal } from '@/utils/storage'
+import { clearSession } from '@/utils/storage'
 
 const cfg = require('../../config/default')
 
@@ -68,7 +68,7 @@ service.interceptors.response.use(
     // localStorage.setItem('cookie', response.headers['set-cookie'])
     if (response.data) {
       if (response.data.code === '203') {
-        setItemToLocal(null)
+        clearSession()
         window.location.hash = 'login'
         // 不弹出提示
         // return message.error(response.data.message || '请先登录')
