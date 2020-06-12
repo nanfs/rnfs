@@ -64,7 +64,7 @@ const webpackConfigDev = {
     clientLogLevel: 'none',
     contentBase: cfgPaths.appDist,
     hot: true,
-    host: '0.0.0.0',
+    host: 'localhost',
     port,
     overlay: {
       warnings: false,

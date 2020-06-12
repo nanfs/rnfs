@@ -12,7 +12,6 @@ export default function LoginForm(props) {
 
   const login = values => {
     setSubmitting(true)
-    console.log('login', values)
     loginApi
       .login(values)
       .then(res =>

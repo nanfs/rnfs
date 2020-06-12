@@ -13,7 +13,6 @@ function Authorized(props) {
 
 export default function AuthorizedRoute(props) {
   const { component: Component, authority, path, redirectPath } = props
-  console.log(Component, authority, path, redirectPath)
   return (
     <Authorized
       authority={authority}
