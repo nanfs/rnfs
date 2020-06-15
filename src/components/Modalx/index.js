@@ -43,8 +43,13 @@ class Modalx extends React.Component {
   }
 
   show = () => {
-    this.setState({
-      show: true
+    return new Promise(resolve => {
+      this.setState(
+        {
+          show: true
+        },
+        resolve()
+      )
     })
   }
 

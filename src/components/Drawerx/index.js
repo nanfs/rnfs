@@ -31,15 +31,20 @@ class Drawerx extends React.Component {
   }
 
   show = () => {
-    this.setState({
-      show: true
+    return new Promise(resolve => {
+      document.body.style.maxHeight = '100vh'
+      // document.body.style.overflow = 'hidden'
+      document.querySelector('.table-wrap').style.height = 'calc(100vh - 105px)'
+      document.querySelector('.table-wrap').style.overflow = 'hidden'
+      document.querySelector('.ant-drawer-body .ant-form').style.Height =
+        'calc(100vh - 185px)'
+      this.setState(
+        {
+          show: true
+        },
+        resolve()
+      )
     })
-    document.body.style.maxHeight = '100vh'
-    // document.body.style.overflow = 'hidden'
-    document.querySelector('.table-wrap').style.height = 'calc(100vh - 105px)'
-    document.querySelector('.table-wrap').style.overflow = 'hidden'
-    document.querySelector('.ant-drawer-body .ant-form').style.Height =
-      'calc(100vh - 185px)'
   }
 
   // 隐藏没有重置表单 点取消去重置表单  this is a feature cancel
@@ -143,26 +148,6 @@ class Drawerx extends React.Component {
   }
 
   renderOption() {
-    if (this.hasFormx()) {
-      return (
-        <Row className="option-wrap">
-          <Col span={6} push={18}>
-            <Button key="back" onClick={this.onClose}>
-              取消
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              disabled={this.state.submitting}
-              loading={this.state.submitting}
-              onClick={this.submit}
-            >
-              确定
-            </Button>
-          </Col>
-        </Row>
-      )
-    }
     return undefined
   }
 
