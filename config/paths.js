@@ -13,6 +13,7 @@ module.exports = {
   appHtml: resolveApp('public/index.html'),
   favicon: resolveApp('public/favicon.ico'),
   appIndexJs: resolveApp('src/index.js'),
+  fonts: resolveApp('src/components/MyIcon/fonts'),
   appPolyfills: resolveApp('config/polyfills.js'),
   appConfig: resolveApp('config')
 }
