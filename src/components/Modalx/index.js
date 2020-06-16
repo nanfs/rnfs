@@ -77,7 +77,7 @@ class Modalx extends React.Component {
 
   afterSubmit = res => {
     return new Promise(resolve => {
-      wrapResponse(res)
+      wrapResponse(res, false)
         .then(() => {
           this.setState({
             show: false,

@@ -91,7 +91,7 @@ class Drawerx extends React.Component {
   afterSubmit = res => {
     const { form } = (this.formRef && this.formRef.props) || {}
     return new Promise(resolve => {
-      wrapResponse(res)
+      wrapResponse(res, false)
         .then(() => {
           this.setState({
             show: false,

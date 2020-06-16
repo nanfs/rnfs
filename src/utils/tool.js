@@ -61,13 +61,17 @@ export function formatTimeToString(time, formatString = 'YYYY/MM/DD') {
   }
   return time.format(formatString)
 }
-export function wrapResponse(res, errorText = '执行出错') {
+export function wrapResponse(
+  res,
+  messageHandle = true,
+  errorText = '执行出错'
+) {
   return new Promise((resolve, reject) => {
     switch (res.code) {
       case 200:
         if (res.success !== undefined && res.success === false) {
           // 处理错误情况
-          message.error(res.message || errorText)
+          messageHandle && message.error(res.message || errorText)
           console.assert(res.message, res)
           reject(res)
           break
@@ -77,7 +81,7 @@ export function wrapResponse(res, errorText = '执行出错') {
 
       case 201:
         if (res.success !== undefined && res.success === false) {
-          message.error(res.message || errorText)
+          messageHandle && message.error(res.message || errorText)
           console.assert(res.message, res)
           reject(res)
           break
