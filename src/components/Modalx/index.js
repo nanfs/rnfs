@@ -26,12 +26,9 @@ const formItemLayout = {
 }
 
 class Modalx extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      show: false,
-      submitting: false
-    }
+  state = {
+    show: false,
+    submitting: false
   }
 
   componentDidMount() {
@@ -49,7 +46,7 @@ class Modalx extends React.Component {
         {
           show: true
         },
-        resolve()
+        resolve(true)
       )
     })
   }
@@ -147,7 +144,6 @@ class Modalx extends React.Component {
   }
 
   renderContent(setFormRef) {
-    // if (this.state.show) {
     return this.hasFormx()
       ? React.cloneElement(this.props.children, {
           onRef: setFormRef,
@@ -155,8 +151,6 @@ class Modalx extends React.Component {
           formItemLayout: this.props.formItemLayout || formItemLayout
         })
       : this.props.children
-    // }
-    // return undefined
   }
 
   render() {

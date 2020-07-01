@@ -73,7 +73,8 @@ class Formx extends React.Component {
           disabled: child.props.children.props.disabled || submitting,
           onChange: e => {
             const { onChange } = child.props.children.props
-            onChange && onChange(value, values, e)
+            // 将新值抛出去和之前不同
+            onChange && onChange(e, value, values)
           }
         })
       )
@@ -93,10 +94,6 @@ class Formx extends React.Component {
         sonNode
       )
     }
-    // 刷新除了 TODO
-    // if (child.props && child.props.onRef) {
-    //   return child
-    // }
     return (
       isParentShow !== false &&
       React.cloneElement(child, {

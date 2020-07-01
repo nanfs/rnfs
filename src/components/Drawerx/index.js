@@ -13,12 +13,9 @@ import { wrapResponse } from '@/utils/tool'
 import './index.less'
 
 class Drawerx extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      show: false,
-      submitting: false
-    }
+  state = {
+    show: false,
+    submitting: false
   }
 
   componentDidMount() {
@@ -32,18 +29,21 @@ class Drawerx extends React.Component {
 
   show = () => {
     return new Promise(resolve => {
+      this.setState({
+        show: true
+      })
       document.body.style.maxHeight = '100vh'
       // document.body.style.overflow = 'hidden'
-      document.querySelector('.table-wrap').style.height = 'calc(100vh - 105px)'
-      document.querySelector('.table-wrap').style.overflow = 'hidden'
-      document.querySelector('.ant-drawer-body .ant-form').style.Height =
-        'calc(100vh - 185px)'
-      this.setState(
-        {
-          show: true
-        },
-        resolve()
-      )
+      if (document.querySelector('.table-wrap')) {
+        document.querySelector('.table-wrap').style.height =
+          'calc(100vh - 105px)'
+        document.querySelector('.table-wrap').style.overflow = 'hidden'
+      }
+      if (document.querySelector('.ant-drawer-body .ant-form')) {
+        document.querySelector('.ant-drawer-body .ant-form').style.Height =
+          'calc(100vh - 185px)'
+      }
+      resolve(true)
     })
   }
 
@@ -56,8 +56,12 @@ class Drawerx extends React.Component {
       submitting: false
     })
     document.body.style = ''
-    document.querySelector('.table-wrap').style = ''
-    document.querySelector('.ant-drawer-body .ant-form').style = ''
+    if (document.querySelector('.table-wrap')) {
+      document.querySelector('.table-wrap').style = ''
+    }
+    if (document.querySelector('.ant-drawer-body .ant-form')) {
+      document.querySelector('.ant-drawer-body .ant-form').style = ''
+    }
   }
 
   showAndWait = () => {
@@ -73,6 +77,13 @@ class Drawerx extends React.Component {
     })
   }
 
+  onClose = () => {
+    this.hide()
+    const { onClose } = this.props
+    onClose && onClose()
+  }
+
+  // 暴露出去
   break = error => {
     if (error) {
       message.error(error.message || error)
@@ -82,16 +93,29 @@ class Drawerx extends React.Component {
     })
   }
 
-  onClose = () => {
-    this.hide()
-    const { onClose } = this.props
-    onClose && onClose()
+  beforeSubmit = form => {
+    return new Promise((resolve, reject) => {
+      if (form) {
+        form.validateFieldsAndScroll((errors, values) => {
+          if (!errors) {
+            this.setState({
+              submitting: true
+            })
+            resolve(values)
+          }
+          reject(errors)
+        })
+      }
+      this.setState({
+        submitting: true
+      })
+    })
   }
 
   afterSubmit = res => {
     const { form } = (this.formRef && this.formRef.props) || {}
     return new Promise(resolve => {
-      wrapResponse(res, false)
+      wrapResponse(res)
         .then(() => {
           this.setState({
             show: false,
@@ -115,27 +139,15 @@ class Drawerx extends React.Component {
   submit = () => {
     const { onOk } = this.props
     const { form } = (this.formRef && this.formRef.props) || {}
-    this.setState({
-      submitting: true
-    })
-    if (form && onOk) {
-      // 使用回调
-      form
-        .validateFieldsAndScroll((errors, values) => {
-          if (!errors) {
-            onOk(values)
-              .then(res => this.afterSubmit(res))
-              .catch(error => this.break(error))
-          } else {
-            this.break()
-          }
+    this.beforeSubmit(form)
+      .then(res => onOk(res))
+      .then(res => this.afterSubmit(res))
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          submitting: false
         })
-        .catch(() => {
-          this.break()
-        })
-    } else {
-      onOk && onOk()
-    }
+      })
   }
 
   hasFormx() {
@@ -150,6 +162,26 @@ class Drawerx extends React.Component {
   }
 
   renderOption() {
+    if (this.hasFormx()) {
+      return (
+        <Row className="option-wrap">
+          <Col span={6} push={18}>
+            <Button key="back" onClick={this.onClose}>
+              取消
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              disabled={this.state.submitting}
+              loading={this.state.submitting}
+              onClick={this.submit}
+            >
+              确定
+            </Button>
+          </Col>
+        </Row>
+      )
+    }
     return undefined
   }
 
