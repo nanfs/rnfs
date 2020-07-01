@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { message } from 'antd'
 import { clearSession } from '@/utils/storage'
 
 const cfg = require('../../config/default')
@@ -34,7 +33,6 @@ function checkErrorStatus(response = {}) {
 }
 
 /** **** 创建axios实例 ***** */
-// TODO 3分钟超时
 const service = axios.create({
   baseURL, // api的base_url
   timeout: 30000, // 请求超时时间30s
