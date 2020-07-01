@@ -23,17 +23,14 @@ const codeMessage = {
   504: '网关超时。'
 }
 
-function checkStatus(response = {}) {
+function checkErrorStatus(response = {}) {
   const {
     status,
     statusText,
     config: { url }
   } = response
-  if ((status >= 200 && status < 300) || status === 409) {
-    return response
-  }
   const errortext = codeMessage[status] || statusText
-  message.error(`${status}: ${url} ${errortext}`)
+  return `${status}: ${url} ${errortext}`
 }
 
 /** **** 创建axios实例 ***** */
@@ -75,7 +72,10 @@ service.interceptors.response.use(
       }
       return response.data
     }
-    return checkStatus(response)
+    const { status } = response
+    if ((status >= 200 && status < 300) || status === 409) {
+      return response
+    }
   },
   error => {
     if (
@@ -85,8 +85,18 @@ service.interceptors.response.use(
       // eslint-disable-next-line
       return Promise.reject({ message: '接口处理超时!', type: 'timeout' })
     }
-    console.log(error)
-    checkStatus(error.response)
+    if (error.message.indexOf('Network Error') !== -1) {
+      // eslint-disable-next-line
+      return Promise.reject({
+        message: '网络错误，请检查网络!',
+        type: 'NetworkError'
+      })
+    }
+    const { status } = error.response
+
+    if (status >= 400 && status <= 504) {
+      return Promise.reject(checkErrorStatus(error.response))
+    }
     return Promise.reject(error)
   }
 )

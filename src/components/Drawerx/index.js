@@ -124,6 +124,8 @@ class Drawerx extends React.Component {
         .validateFieldsAndScroll((errors, values) => {
           if (!errors) {
             onOk(values)
+              .then(res => this.afterSubmit(res))
+              .catch(error => this.break(error))
           } else {
             this.break()
           }

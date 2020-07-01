@@ -54,6 +54,7 @@ class Modalx extends React.Component {
     })
   }
 
+  // 提交后出错处理
   break = error => {
     if (error) {
       message.error(error.message || error)
@@ -63,6 +64,7 @@ class Modalx extends React.Component {
     })
   }
 
+  // 关闭后 如果有表单 重置表单
   afterClose = () => {
     this.form && this.form.resetFields()
   }
@@ -76,9 +78,29 @@ class Modalx extends React.Component {
     onClose && onClose()
   }
 
+  beforeSubmit = form => {
+    return new Promise((resolve, reject) => {
+      if (form) {
+        form.validateFieldsAndScroll((errors, values) => {
+          if (!errors) {
+            this.setState({
+              submitting: true
+            })
+            resolve(values)
+          }
+          reject(errors)
+        })
+      }
+      this.setState({
+        submitting: true
+      })
+    })
+  }
+
   afterSubmit = res => {
+    const { form } = (this.formRef && this.formRef.props) || {}
     return new Promise(resolve => {
-      wrapResponse(res, false)
+      wrapResponse(res)
         .then(() => {
           this.setState({
             show: false,
@@ -87,9 +109,11 @@ class Modalx extends React.Component {
           this.props.onSuccess && this.props.onSuccess()
           notification.success({ message: res.message || '操作成功' })
           resolve(res)
+          form.resetFields()
         })
-        .catch(error => {
-          message.error(error.message || error)
+        .catch(() => {
+          console.log(res.message, res)
+          message.error(res.message || '操作失败')
           this.setState({
             submitting: false
           })
@@ -100,26 +124,15 @@ class Modalx extends React.Component {
   submit = () => {
     const { onOk } = this.props
     const { form } = (this.formRef && this.formRef.props) || {}
-    this.setState({
-      submitting: true
-    })
-    if (form && onOk) {
-      // 使用回调
-      form
-        .validateFieldsAndScroll((errors, values) => {
-          if (!errors) {
-            onOk(values)
-          }
+    this.beforeSubmit(form)
+      .then(res => onOk(res))
+      .then(res => this.afterSubmit(res))
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          submitting: false
         })
-        .catch(error => {
-          message.error(error.message || error)
-          this.setState({
-            submitting: false
-          })
-        })
-    } else {
-      onOk && onOk()
-    }
+      })
   }
 
   hasFormx() {
