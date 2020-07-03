@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal, Button, notification, message } from 'antd'
 import { wrapResponse } from '@/utils/tool'
+import classnames from 'classnames'
 import './index.less'
 
 const ModalCfg_init = {
@@ -13,16 +14,6 @@ const ModalCfg_init = {
 }
 export function createModalCfg(myCfg) {
   return { ...ModalCfg_init, ...myCfg }
-}
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 7, pull: 1 }
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 }
-  }
 }
 
 class Modalx extends React.Component {
@@ -147,8 +138,7 @@ class Modalx extends React.Component {
     return this.hasFormx()
       ? React.cloneElement(this.props.children, {
           onRef: setFormRef,
-          submitting: this.state.submitting,
-          formItemLayout: this.props.formItemLayout || formItemLayout
+          submitting: this.state.submitting
         })
       : this.props.children
   }
@@ -159,6 +149,7 @@ class Modalx extends React.Component {
     const setFormRef = ref => {
       this.formRef = ref
     }
+    const cls = classnames('modalx', this.props.className)
     return (
       <Modal
         {...modalCfg}
@@ -167,7 +158,7 @@ class Modalx extends React.Component {
         onOk={this.onOk}
         afterClose={this.afterClose}
         title={title || modalCfg.title}
-        className="modalx"
+        className={cls}
         footer={
           modalCfg && modalCfg.hasFooter
             ? [
