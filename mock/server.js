@@ -61,10 +61,7 @@ server.post('/user_login', (req, res) => {
     })
   } else {
     res.status(200).json({
-      data: {
-        reason: 'PSSWORD_ERROR',
-        detail: '用户名或密码错误'
-      },
+      message: '用户名或密码错误',
       code: 200,
       success: false
       // message: '用户名或密码错误'
