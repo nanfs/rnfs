@@ -31,7 +31,7 @@ const webpackConfigBase = {
     chunkFilename: 'chunks/[name].[hash:4].js'
   },
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.json', '.ts', '.tsx'],
     alias: {
       '@': cfgPaths.appSrc,
       '*': cfgPaths.appConfig
@@ -51,7 +51,11 @@ const webpackConfigBase = {
         exclude: /node_modules/,
         loader: 'happypack/loader?id=happyBabel'
       },
-
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader'
+      },
       {
         test: /\.m\.less$/,
         use: [

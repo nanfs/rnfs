@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import { Spin } from 'antd'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
-
-export default function Loading() {
+const Loading: React.FC<{}> = () => {
   useEffect(() => {
     Nprogress.start()
     return () => Nprogress.done()
@@ -14,3 +13,4 @@ export default function Loading() {
     </div>
   )
 }
+export default Loading

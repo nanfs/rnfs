@@ -1,9 +1,9 @@
 import React from 'react'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
-import asyncComponent from '*/asyncComponent'
+import asyncComponent from '../config/asyncComponent'
 import AuthorizedRoute from '@/layouts/AuthorizedRoute'
 
-export default function Router() {
+const Router: React.FC<any> = () => {
   return (
     <HashRouter>
       <Switch>
@@ -22,3 +22,4 @@ export default function Router() {
     </HashRouter>
   )
 }
+export default Router

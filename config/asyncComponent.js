@@ -1,7 +1,7 @@
 import React from 'react'
 import Loading from '@/layouts/Loading'
 
-export default function asyncComponent(importComponent) {
+const asyncComponent = importComponent => {
   class AsyncComponent extends React.Component {
     state = {
       component: null
@@ -22,3 +22,4 @@ export default function asyncComponent(importComponent) {
   }
   return AsyncComponent
 }
+export default asyncComponent

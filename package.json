@@ -22,11 +22,13 @@
     "nprogress": "^0.2.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "typescript": "^3.9.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.7",
+    "@babel/helper-plugin-utils": "^7.10.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.10.1",
     "@babel/plugin-proposal-do-expressions": "^7.10.1",
@@ -44,6 +46,8 @@
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.8.3",
     "@babel/runtime-corejs2": "^7.10.2",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
     "antd-dayjs-webpack-plugin": "^0.0.9",
     "autoprefixer": "^9.8.0",
     "babel-eslint": "^8.2.1",
@@ -91,6 +95,7 @@
     "style-loader": "^0.20.1",
     "terser-webpack-plugin": "^2.3.5",
     "thread-loader": "^1.1.2",
+    "ts-loader": "^8.0.0",
     "webpack": "^4.42.0",
     "webpack-build-notifier": "^2.0.0",
     "webpack-bundle-analyzer": "2.9.0",

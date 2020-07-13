@@ -12,7 +12,7 @@ module.exports = {
   appBuildHtml: resolveApp('public/build.html'),
   appHtml: resolveApp('public/index.html'),
   favicon: resolveApp('public/favicon.ico'),
-  appIndexJs: resolveApp('src/index.js'),
+  appIndexJs: resolveApp('src/index.tsx'),
   fonts: resolveApp('src/components/MyIcon/fonts'),
   appPolyfills: resolveApp('config/polyfills.js'),
   appConfig: resolveApp('config')
