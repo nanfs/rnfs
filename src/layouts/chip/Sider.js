@@ -83,7 +83,7 @@ export default function Sider({ path }) {
       <Menu
         mode="inline"
         selectedKeys={[path]}
-        openKeys={collapsed ? [] : openKeys}
+        defaultOpenKeys={collapsed ? [] : openKeys}
         onOpenChange={key => setOpenKeys(key)}
       >
         {routerData.map(item => {
